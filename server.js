@@ -24,6 +24,18 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/timestamp/:dateString", function (req, res) {
+  console.log(req.params.dateString);
+  try {
+    var dt = new Date();
+    if(req.params.dateString != null)
+      dt = new Date(req.params.dateString);
+    res.json({'unix': dt.getTime(), 'utc': dt.toUTCString()});
+  } catch (error) {
+    res.json({"unix": null, "utc" : "Invalid Date" });
+  }
+});
+
 
 
 // listen for requests :)
